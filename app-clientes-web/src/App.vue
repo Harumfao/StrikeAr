@@ -1,5 +1,7 @@
 <script setup>
 import TheWelcome from './components/TheWelcome.vue'
+import Publicaciones from './components/Publicaciones.vue'
+
 </script>
 
 <template>
@@ -10,7 +12,7 @@ import TheWelcome from './components/TheWelcome.vue'
   </header>
 
   <main>
-    <TheWelcome />
+    <Publicaciones />
   </main>
 </template>
 

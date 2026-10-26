@@ -7,6 +7,7 @@ import { supabase } from '@/supabase';
 </script>
 
 <template>
+
   <div class="modulo-mapa">
     <header class="mapa-header">
       <h2>Mapa & Geolocalización</h2>
