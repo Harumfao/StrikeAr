@@ -36,3 +36,12 @@ npm run dev
 ```sh
 npm run build
 ```
+
+### Supabase setup
+
+The home page loads publications and sports fields from Supabase. Copy `.env.example`
+to `.env` and set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` using the
+project's Supabase settings. Restart the Vite development server after changing
+environment variables. The map and geolocation controls can be used without
+Supabase, but database content requires these settings and the expected
+`publication` and `field` tables.
