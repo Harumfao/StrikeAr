@@ -1,6 +1,5 @@
 <script>
 import { ref, onMounted, nextTick } from 'vue'
-import 'leaflet/dist/leaflet.css'
 import { supabase } from '@/supabase';
 </script>
 
