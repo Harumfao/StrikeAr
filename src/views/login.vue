@@ -30,6 +30,6 @@
       <button type="submit">Confirmar</button>
     </form>
 
-    <a href="/register">=Aun no tienes cuenta? Regístrate aquí</a>
+    <a href="/register">¿Aun no tienes cuenta? Regístrate aquí</a>
   </div>
 </template>
