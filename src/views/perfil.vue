@@ -1,10 +1,11 @@
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import HomeLayout from '@/components/HomeLayout.vue'
 import { supabase } from '@/supabase'
 
+const router = useRouter()
 const perfil = ref(null)
-const user_id = '2ed6306f-a7d7-4387-934b-49b564f95db2'
 
 const obtenerPerfil = async () => {
   if (!supabase) {
@@ -12,16 +13,26 @@ const obtenerPerfil = async () => {
     return
   }
 
-  const { data, error } = await supabase
-    .from('usser')
-    .select('name, biography, equipment')
-    .eq('id_user', user_id)
-    .single()
+  try {
+    const { data: { user }, error: authError } = await supabase.auth.getUser()
+    const userId = user.id
 
-  if (error) {
-    console.error('Error al obtener el perfil:', error)
-  } else {
-    perfil.value = data
+    const { data, error } = await supabase
+      .from('usser')
+      .select('name, biography, equipment')
+      .eq('id_user', userId)
+      .maybeSingle()
+
+    if (error) throw error
+
+    if (data) {
+      perfil.value = data
+    } else {
+      console.log('El usuario no tiene un perfil creado en la tabla usser.')
+    }
+
+  } catch (error) {
+    console.error('Error al obtener el perfil:', error.message)
   }
 }
 

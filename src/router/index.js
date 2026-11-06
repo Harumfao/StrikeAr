@@ -23,7 +23,7 @@ const router = createRouter({
         component: register
     },
     { 
-        path: '/',
+        path: '/home',
         name: 'home',
         alias: ['/home', '/dashboard'],
         component: home

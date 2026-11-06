@@ -2,15 +2,47 @@
     import '../assets/auth.css'
     import logo from '../assets/images/logo.png'
     import { ref } from 'vue'
+    import { supabase } from '@/supabase';
     import { useRouter } from 'vue-router'
     
     const username = ref('')
     const password = ref('')
+    const email = ref('')
+
+    const loading = ref (false)
+    const errorMessage = ref ('')
+
     const router = useRouter()
     
-    const handleLogin = () => {
-        // Login logic here
-        router.push('/dashboard')
+    const handleRegister = async () => {
+        loading.value = true
+        errorMessage.value = ''
+
+        try {
+          const {data,error} = await supabase.auth.signUp({
+            email: email.value.trim(),
+            password: password.value,
+            options:{
+              data: {
+                username: username.value
+              }
+            }
+          })
+          if (error) throw error
+
+          if (data.session){
+            await supabase.from('usser').insert([
+              {id_user: data.user.id, name: username.value}
+            ])
+            router.push('/home')
+          } else {
+            errorMessage.value = 'No se pudo iniciar sesión automáticamente, por favor loguéate.'
+          }
+        } catch (error){
+          errorMessage.value = error.message
+        } finally {
+          loading.value = false
+        }
     }
 </script>
 
